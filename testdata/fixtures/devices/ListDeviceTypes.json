@@ -1,0 +1,274 @@
+{
+  "body": {
+    "types": {
+      "os": {
+        "name": "Desktop & Mobile",
+        "icons": {
+          "desktop-windows": {
+            "name": "Windows",
+            "settings": {
+              "stats": 2
+            }
+          },
+          "desktop-mac": {
+            "name": "Mac",
+            "settings": {
+              "stats": 2
+            }
+          },
+          "desktop-linux": {
+            "name": "Linux",
+            "settings": {
+              "stats": 2
+            }
+          },
+          "mobile-ios": {
+            "name": "iOS",
+            "settings": {
+              "stats": 2
+            }
+          },
+          "mobile-android": {
+            "name": "Android",
+            "highlight": [
+              "dot"
+            ],
+            "settings": {
+              "stats": 2
+            }
+          }
+        }
+      },
+      "browser": {
+        "name": "Browsers",
+        "icons": {
+          "browser-chrome": {
+            "name": "Chrome",
+            "highlight": [
+              "doh"
+            ],
+            "settings": {
+              "stats": 2
+            }
+          },
+          "browser-firefox": {
+            "name": "Firefox",
+            "highlight": [
+              "doh"
+            ],
+            "settings": {
+              "stats": 2
+            }
+          },
+          "browser-edge": {
+            "name": "Edge",
+            "highlight": [
+              "doh"
+            ],
+            "settings": {
+              "stats": 2
+            }
+          },
+          "browser-brave": {
+            "name": "Brave",
+            "highlight": [
+              "doh"
+            ],
+            "settings": {
+              "stats": 2
+            }
+          },
+          "browser-other": {
+            "name": "Other",
+            "highlight": [
+              "doh"
+            ],
+            "settings": {
+              "stats": 2
+            }
+          }
+        }
+      },
+      "tv": {
+        "name": "TV & Media",
+        "icons": {
+          "tv-apple": {
+            "name": "Apple TV",
+            "settings": {
+              "legacy_ipv4_status": 0
+            }
+          },
+          "tv-android": {
+            "name": "Android TV",
+            "highlight": [
+              "ipv4"
+            ],
+            "require": [
+              "ipv4"
+            ],
+            "settings": {
+              "legacy_ipv4_status": 1,
+              "learn_ip": 1
+            }
+          },
+          "tv-firetv": {
+            "name": "Fire TV",
+            "highlight": [
+              "ipv4"
+            ],
+            "require": [
+              "ipv4"
+            ],
+            "settings": {
+              "legacy_ipv4_status": 1,
+              "learn_ip": 1
+            }
+          },
+          "tv-samsung": {
+            "name": "Samsung TV",
+            "highlight": [
+              "ipv4"
+            ],
+            "require": [
+              "ipv4"
+            ],
+            "settings": {
+              "legacy_ipv4_status": 1,
+              "learn_ip": 1
+            }
+          },
+          "tv": {
+            "name": "Other",
+            "highlight": [
+              "ipv4"
+            ],
+            "require": [
+              "ipv4"
+            ],
+            "settings": {
+              "legacy_ipv4_status": 1,
+              "learn_ip": 1
+            }
+          }
+        }
+      },
+      "router": {
+        "name": "Routers",
+        "icons": {
+          "router-asus": {
+            "name": "Asus Merlin",
+            "highlight": [
+              "resolverId"
+            ],
+            "settings": {
+              "stats": 2
+            }
+          },
+          "router-ddwrt": {
+            "name": "DD-WRT",
+            "highlight": [
+              "resolverId"
+            ],
+            "settings": {
+              "stats": 2
+            }
+          },
+          "router-firewalla": {
+            "name": "Firewalla",
+            "highlight": [
+              "resolverId"
+            ],
+            "settings": {
+              "stats": 2
+            }
+          },
+          "router-freshtomato": {
+            "name": "Fresh Tomato",
+            "highlight": [
+              "resolverId"
+            ],
+            "settings": {
+              "stats": 2
+            }
+          },
+          "router-glinet": {
+            "name": "GL.iNet",
+            "highlight": [
+              "resolverId"
+            ],
+            "settings": {
+              "stats": 2
+            }
+          },
+          "router-openwrt": {
+            "name": "OpenWRT",
+            "highlight": [
+              "resolverId"
+            ],
+            "settings": {
+              "stats": 2
+            }
+          },
+          "router-opnsense": {
+            "name": "OPNsense",
+            "highlight": [
+              "resolverId"
+            ],
+            "settings": {
+              "stats": 2
+            }
+          },
+          "router-pfsense": {
+            "name": "pfSense",
+            "highlight": [
+              "resolverId"
+            ],
+            "settings": {
+              "stats": 2
+            }
+          },
+          "router-synology": {
+            "name": "Synology",
+            "highlight": [
+              "resolverId"
+            ],
+            "settings": {
+              "stats": 2
+            }
+          },
+          "router-ubiquiti": {
+            "name": "Ubiquiti",
+            "highlight": [
+              "resolverId"
+            ],
+            "settings": {
+              "stats": 2
+            }
+          },
+          "router-windows": {
+            "name": "Windows Server",
+            "settings": {
+              "stats": 2
+            }
+          },
+          "router-linux": {
+            "name": "Generic Linux",
+            "settings": {
+              "stats": 2
+            }
+          },
+          "router": {
+            "name": "Other",
+            "settings": {
+              "stats": 2,
+              "legacy_ipv4_status": 1,
+              "learn_ip": 1
+            }
+          }
+        },
+        "setup_url": "https:\/\/github.com\/Control-D-Inc\/ctrld"
+      }
+    }
+  },
+  "success": true
+}
