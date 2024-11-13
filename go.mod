@@ -6,7 +6,7 @@ require (
 	github.com/goccy/go-json v0.10.2
 	github.com/google/go-querystring v1.1.0
 	github.com/stretchr/testify v1.9.0
-	golang.org/x/time v0.5.0
+	golang.org/x/time v0.8.0
 )
 
 require (
