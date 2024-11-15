@@ -10,7 +10,7 @@
 <div align="center">
 
 ![GitHub Tag](https://img.shields.io/github/v/tag/baptistecdr/controld-go?label=Latest%20version)
-[![Go Reference](https://pkg.go.dev/badge/baptistecdr/controld-go.svg)](https://pkg.go.dev/baptistecdr/controld-go)
+[![Go Reference](https://pkg.go.dev/badge/baptistecdr/controld-go.svg)](https://pkg.go.dev/github.com/baptistecdr/controld-go)
 [![Go Report Card](https://goreportcard.com/badge/github.com/baptistecdr/controld-go?style=flat-square)](https://goreportcard.com/report/github.com/baptistecdr/controld-go)
 
 </div>
