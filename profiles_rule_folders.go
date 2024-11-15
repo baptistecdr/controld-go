@@ -99,7 +99,7 @@ func (api *API) ListProfileRuleFolders(ctx context.Context, params ListProfileRu
 
 func (api *API) CreateProfileRuleFolder(ctx context.Context, params CreateProfileRuleFolderParams) ([]Group, error) {
 	if params.ProfileID == "" {
-		return []Group{}, fmt.Errorf("list: no profile ID provided")
+		return []Group{}, fmt.Errorf("create: no profile ID provided")
 	}
 	baseURL := fmt.Sprintf("/profiles/%s/groups", params.ProfileID)
 	uri := buildURI(baseURL, nil)

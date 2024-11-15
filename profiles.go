@@ -166,7 +166,7 @@ func (api *API) UpdateProfile(ctx context.Context, params UpdateProfileParams) (
 
 func (api *API) DeleteProfile(ctx context.Context, params DeleteProfileParams) ([]any, error) {
 	if params.ProfileID == "" {
-		return []any{}, fmt.Errorf("update: no profile ID provided")
+		return []any{}, fmt.Errorf("delete: no profile ID provided")
 	}
 	baseURL := fmt.Sprintf("/profiles/%s", params.ProfileID)
 	uri := buildURI(baseURL, nil)

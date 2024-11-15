@@ -109,7 +109,7 @@ func (api *API) ListProfileExternalFilters(ctx context.Context, params ListProfi
 
 func (api *API) UpdateProfileFilter(ctx context.Context, params UpdateProfileFilterParams) (any, error) {
 	if params.ProfileID == "" {
-		return nil, fmt.Errorf("list: no profile ID provided")
+		return nil, fmt.Errorf("update: no profile ID provided")
 	}
 	baseURL := fmt.Sprintf("/profiles/%s/filters/filter/%s", params.ProfileID, params.Filter)
 	uri := buildURI(baseURL, nil)
