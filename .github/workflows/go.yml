@@ -39,6 +39,7 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
+    needs: lint
     steps:
       - name: Set up Go
         uses: actions/setup-go@v5
