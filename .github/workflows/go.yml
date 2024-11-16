@@ -18,6 +18,7 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version: ${{ env.GO_VERSION }}
+          cache-dependency-path: "**/go.sum"
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Set up cache
@@ -43,6 +44,7 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version: ${{ env.GO_VERSION }}
+          cache-dependency-path: "**/go.sum"
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Set up cache
@@ -60,6 +62,9 @@ jobs:
     steps:
       - name: Set up Go
         uses: actions/setup-go@v5
+        with:
+          go-version: ${{ env.GO_VERSION }}
+          cache-dependency-path: "**/go.sum"
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Set up cache
