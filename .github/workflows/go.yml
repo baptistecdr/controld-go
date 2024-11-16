@@ -6,7 +6,8 @@ permissions:
   contents: read
 
 env:
-  GO_VERSION: 1.21
+  GO_VERSION: 1.23
+  GOLANGCI_LINT_VERSION: v1.60
 
 name: Go
 jobs:
@@ -29,13 +30,7 @@ jobs:
       - name: Lint
         uses: golangci/golangci-lint-action@v6
         with:
-          version: v1.60
-      - name: Lint tests
-        run: |
-          go install github.com/Antonboom/testifylint@latest
-          testifylint ./...
-      - name: Vet
-        run: go vet ./...
+          version: ${{ env.GOLANGCI_LINT_VERSION }}
   test:
     name: Test
     runs-on: ubuntu-latest

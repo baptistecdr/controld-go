@@ -1,6 +1,6 @@
 module github.com/baptistecdr/controld-go
 
-go 1.21
+go 1.23
 
 require (
 	github.com/goccy/go-json v0.10.3

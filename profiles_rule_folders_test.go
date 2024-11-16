@@ -131,7 +131,7 @@ func TestUpdateProfileRuleFolder(t *testing.T) {
 				"groups": [
 				  {
 					"PK": 1,
-					"group": "New Group Name",
+					"group": "NewGroupName",
 					"action": {
 					  "status": 1
 					},
@@ -146,7 +146,7 @@ func TestUpdateProfileRuleFolder(t *testing.T) {
 
 	params := UpdateProfileRuleFolderParams{
 		ProfileID: "profileID",
-		FolderID:  "New Group Name",
+		FolderID:  "NewGroupName",
 	}
 
 	mux.HandleFunc(fmt.Sprintf("/profiles/%s/groups/%s", params.ProfileID, params.FolderID), handler)
@@ -155,7 +155,7 @@ func TestUpdateProfileRuleFolder(t *testing.T) {
 	want := []Group{
 		{
 			PK:    1,
-			Group: "New Group Name",
+			Group: "NewGroupName",
 			Action: GroupAction{
 				Do:     nil,
 				Status: IntBool{true},
