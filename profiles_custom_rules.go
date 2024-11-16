@@ -11,8 +11,8 @@ type CustomRule Action
 
 type Rule struct {
 	PK     string `json:"PK"`
-	Order  int64  `json:"order"`
-	Group  int64  `json:"group"`
+	Order  int    `json:"order"`
+	Group  int    `json:"group"`
 	Action Action `json:"action"`
 }
 
@@ -36,7 +36,7 @@ type CreateProfileCustomRuleParams struct {
 	Status    IntBool  `json:"status"`
 	Via       *string  `json:"via,omitempty"`
 	ViaV6     *string  `json:"via_v6,omitempty"`
-	Group     *int64   `json:"group,omitempty"`
+	Group     *int     `json:"group,omitempty"`
 	Hostnames []string `json:"hostnames"`
 }
 
@@ -55,7 +55,7 @@ type UpdateProfileCustomRuleParams struct {
 	Status    IntBool  `json:"status"`
 	Via       *string  `json:"via,omitempty"`
 	ViaV6     *string  `json:"via_v6,omitempty"`
-	Group     *int64   `json:"group,omitempty"`
+	Group     *int     `json:"group,omitempty"`
 	Hostnames []string `json:"hostnames"`
 }
 

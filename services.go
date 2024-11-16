@@ -11,7 +11,7 @@ type Category struct {
 	PK          string `json:"PK"`
 	Name        string `json:"name"`
 	Description string `json:"description"`
-	Count       int64  `json:"count"`
+	Count       int    `json:"count"`
 }
 
 type ListServiceCategoriesBody struct {
@@ -45,8 +45,7 @@ type ListServicesResponse struct {
 }
 
 func (api *API) ListServiceCategories(ctx context.Context) ([]Category, error) {
-	baseURL := fmt.Sprintf("/services/categories")
-	uri := buildURI(baseURL, nil)
+	uri := buildURI("/services/categories", nil)
 
 	res, err := api.makeRequestContext(ctx, http.MethodGet, uri, nil)
 	if err != nil {

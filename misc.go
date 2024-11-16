@@ -28,9 +28,9 @@ type Location struct {
 }
 
 type Status struct {
-	API int64 `json:"api"`
-	DNS int64 `json:"dns"`
-	Pxy int64 `json:"pxy"`
+	API int `json:"api"`
+	DNS int `json:"dns"`
+	Pxy int `json:"pxy"`
 }
 
 type Network struct {
@@ -53,8 +53,7 @@ type ListNetworkResponse struct {
 }
 
 func (api *API) ListIP(ctx context.Context) (IP, error) {
-	baseURL := fmt.Sprintf("/ip")
-	uri := buildURI(baseURL, nil)
+	uri := buildURI("/ip", nil)
 
 	res, err := api.makeRequestContext(ctx, http.MethodGet, uri, nil)
 	if err != nil {
@@ -68,8 +67,7 @@ func (api *API) ListIP(ctx context.Context) (IP, error) {
 }
 
 func (api *API) ListNetwork(ctx context.Context) ([]Network, error) {
-	baseURL := fmt.Sprintf("/network")
-	uri := buildURI(baseURL, nil)
+	uri := buildURI("/network", nil)
 
 	res, err := api.makeRequestContext(ctx, http.MethodGet, uri, nil)
 	if err != nil {

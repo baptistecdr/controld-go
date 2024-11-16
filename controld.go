@@ -79,6 +79,8 @@ func New(token string, opts ...Option) (*API, error) {
 
 // makeRequest makes a HTTP request and returns the body as a byte slice,
 // closing it before returning. params will be serialized to JSON.
+//
+//nolint:unused
 func (api *API) makeRequest(method, uri string, params interface{}) ([]byte, error) {
 	return api.makeRequestWithAuthType(context.Background(), method, uri, params)
 }
@@ -116,6 +118,8 @@ func (api *API) makeRequestWithAuthTypeAndHeaders(ctx context.Context, method, u
 }
 
 // Use this method if an API response can have different Content-Type headers and different body formats.
+//
+//nolint:unused
 func (api *API) makeRequestContextWithHeadersComplete(ctx context.Context, method, uri string, params interface{}, headers http.Header) (*APIResponse, error) {
 	return api.makeRequestWithAuthTypeAndHeadersComplete(ctx, method, uri, params, headers)
 }
@@ -311,10 +315,10 @@ type DateTime struct {
 }
 
 func (dt DateTime) MarshalJSON() ([]byte, error) {
-	return []byte(fmt.Sprintf("%s", dt.Format(time.RFC3339))), nil
+	return []byte(dt.Format(time.RFC3339)), nil
 }
-func (dt DateTime) UnmarshalJSON(b []byte) error {
-	var dateTimeStr = string(b[1 : len(b)-1])
+func (dt *DateTime) UnmarshalJSON(data []byte) error {
+	var dateTimeStr = string(data[1 : len(data)-1])
 	parse, err := time.Parse(time.RFC1123Z, dateTimeStr)
 	if err != nil {
 		return err
@@ -377,5 +381,6 @@ type Logger interface {
 type ReqOption func(opt *reqOption)
 
 type reqOption struct {
+	//nolint:unused
 	params url.Values
 }

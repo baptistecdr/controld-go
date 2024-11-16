@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"net"
 	"net/http"
 	"testing"
@@ -164,7 +165,7 @@ func TestListDeviceTypes(t *testing.T) {
 	handler := func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, http.MethodGet, r.Method, "Expected method 'GET', got %s", r.Method)
 		w.Header().Set("Content-Type", "application/json")
-		fmt.Fprintf(w, deviceTypes)
+		fmt.Fprintf(w, "%s", deviceTypes)
 	}
 	mux.HandleFunc("/devices/types", handler)
 	_, err := client.ListDeviceType(context.Background())
@@ -245,14 +246,14 @@ func TestUpdateDevice(t *testing.T) {
 	}
 
 	_, err = client.UpdateDevice(context.Background(), UpdateDeviceParams{DeviceID: ""})
-	assert.Error(t, err)
+	require.Error(t, err)
 }
 
 func TestDeleteDevice(t *testing.T) {
 	setup()
 	defer teardown()
 	handler := func(w http.ResponseWriter, r *http.Request) {
-		assert.Equal(t, r.Method, "DELETE", "Expected method 'DELETE', got %s", r.Method)
+		assert.Equal(t, "DELETE", r.Method, "Expected method 'DELETE', got %s", r.Method)
 		w.Header().Set("Content-Type", "application/json")
 		fmt.Fprintf(w, `{
 		  "body": [],
@@ -263,8 +264,8 @@ func TestDeleteDevice(t *testing.T) {
 	deviceID := "deviceID"
 	mux.HandleFunc(fmt.Sprintf("/devices/%s", deviceID), handler)
 	_, err := client.DeleteDevice(context.Background(), DeleteDeviceParams{DeviceID: deviceID})
-	assert.NoError(t, err, "Device should have been deleted")
+	require.NoError(t, err, "Device should have been deleted")
 
 	_, err = client.DeleteDevice(context.Background(), DeleteDeviceParams{DeviceID: ""})
-	assert.Error(t, err, "Device should not have been deleted")
+	require.Error(t, err, "Device should not have been deleted")
 }

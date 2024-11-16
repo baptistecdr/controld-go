@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"net"
 	"net/http"
 	"testing"
@@ -78,7 +79,7 @@ func TestListProfilesNativeFilters(t *testing.T) {
 	_, err = client.ListProfileNativeFilters(context.Background(), ListProfileFiltersParams{
 		ProfileID: "",
 	})
-	assert.Error(t, err, "Profile Filters should not have been listed")
+	require.Error(t, err, "Profile Filters should not have been listed")
 }
 
 func TestListProfilesExternalFilters(t *testing.T) {
@@ -142,7 +143,7 @@ func TestListProfilesExternalFilters(t *testing.T) {
 	_, err = client.ListProfileExternalFilters(context.Background(), ListProfileFiltersParams{
 		ProfileID: "",
 	})
-	assert.Error(t, err, "Profile Filters should not have been listed")
+	require.Error(t, err, "Profile Filters should not have been listed")
 }
 
 func TestUpdateProfileFilter(t *testing.T) {
@@ -189,11 +190,11 @@ func TestUpdateProfileFilter(t *testing.T) {
 	_, err = client.UpdateProfileFilter(context.Background(), UpdateProfileFilterParams{
 		ProfileID: "",
 	})
-	assert.Error(t, err, "Profile Filter should not have been updated")
+	require.Error(t, err, "Profile Filter should not have been updated")
 
 	_, err = client.UpdateProfileFilter(context.Background(), UpdateProfileFilterParams{
 		ProfileID: "profileID",
 		Filter:    "",
 	})
-	assert.Error(t, err, "Profile Filter should not have been updated")
+	require.Error(t, err, "Profile Filter should not have been updated")
 }

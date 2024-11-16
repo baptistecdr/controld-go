@@ -91,14 +91,14 @@ const (
 )
 
 type DDNS struct {
-	Status    int64  `json:"status"`
+	Status    int    `json:"status"`
 	Subdomain string `json:"subdomain"`
 	Hostname  string `json:"hostname"`
 	Record    string `json:"record"`
 }
 
 type DDNSExt struct {
-	Status int64  `json:"status"`
+	Status int    `json:"status"`
 	Host   string `json:"host"`
 }
 
@@ -115,7 +115,7 @@ type LegacyIPv4 struct {
 	Status   IntBool `json:"status"`
 }
 
-type DeviceStatus int64
+type DeviceStatus int
 
 const (
 	Pending      = 0
@@ -282,8 +282,7 @@ type DeleteDeviceResponse struct {
 }
 
 func (api *API) ListDevices(ctx context.Context) ([]Device, error) {
-	baseURL := fmt.Sprintf("/devices")
-	uri := buildURI(baseURL, nil)
+	uri := buildURI("/devices", nil)
 
 	res, err := api.makeRequestContext(ctx, http.MethodGet, uri, nil)
 	if err != nil {
@@ -300,8 +299,7 @@ func (api *API) ListDevices(ctx context.Context) ([]Device, error) {
 }
 
 func (api *API) CreateDevice(ctx context.Context, params CreateDeviceParams) (Device, error) {
-	baseURL := fmt.Sprintf("/devices")
-	uri := buildURI(baseURL, nil)
+	uri := buildURI("/devices", nil)
 
 	res, err := api.makeRequestContext(ctx, http.MethodPost, uri, params)
 	if err != nil {
@@ -318,8 +316,7 @@ func (api *API) CreateDevice(ctx context.Context, params CreateDeviceParams) (De
 }
 
 func (api *API) ListDeviceType(ctx context.Context) (DeviceTypes, error) {
-	baseURL := fmt.Sprintf("/devices/types")
-	uri := buildURI(baseURL, nil)
+	uri := buildURI("/devices/types", nil)
 	res, err := api.makeRequestContext(ctx, http.MethodGet, uri, nil)
 	if err != nil {
 		return DeviceTypes{}, fmt.Errorf("%s: %w", errMakeRequestError, err)

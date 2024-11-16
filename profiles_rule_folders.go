@@ -13,10 +13,10 @@ type GroupAction struct {
 }
 
 type Group struct {
-	PK     int64       `json:"PK"`
+	PK     int         `json:"PK"`
 	Group  string      `json:"group"`
 	Action GroupAction `json:"action"`
-	Count  int64       `json:"count"`
+	Count  int         `json:"count"`
 }
 
 type ListProfileRuleFoldersParams struct {

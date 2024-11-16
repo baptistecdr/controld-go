@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"net/http"
 	"testing"
 )
@@ -68,7 +69,7 @@ func TestListProfileServices(t *testing.T) {
 	_, err = client.ListProfileServices(context.Background(), ListProfileServicesParams{
 		ProfileID: "",
 	})
-	assert.Error(t, err, "Profile Services should not have been listed")
+	require.Error(t, err, "Profile Services should not have been listed")
 }
 
 func TestUpdateProfileService(t *testing.T) {
@@ -124,11 +125,11 @@ func TestUpdateProfileService(t *testing.T) {
 		ProfileID: "",
 		Service:   "4chan",
 	})
-	assert.Error(t, err, "Profile Service should not have been updated")
+	require.Error(t, err, "Profile Service should not have been updated")
 
 	_, err = client.UpdateProfileService(context.Background(), UpdateProfileServiceParams{
 		ProfileID: "profileID",
 		Service:   "",
 	})
-	assert.Error(t, err, "Profile Service should not have been updated")
+	require.Error(t, err, "Profile Service should not have been updated")
 }

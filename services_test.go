@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"net/http"
 	"testing"
 )
@@ -94,5 +95,5 @@ func TestListServices(t *testing.T) {
 	_, err = client.ListServices(context.Background(), ListServicesParams{
 		Category: "",
 	})
-	assert.Error(t, err, "Services should not have been listed")
+	require.Error(t, err, "Services should not have been listed")
 }

@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"net"
 	"net/http"
-	"strings"
 	"time"
 )
 
@@ -19,7 +18,7 @@ func (s Date) MarshalJSON() ([]byte, error) {
 }
 
 func (s *Date) UnmarshalJSON(data []byte) error {
-	dateStr := strings.Replace(string(data), "\"", "", -1)
+	dateStr := string(data[1 : len(data)-1])
 	date, err := time.Parse(time.DateOnly, dateStr)
 	if err != nil {
 		return err
@@ -33,7 +32,7 @@ type User struct {
 	ResolverIP     net.IP   `json:"resolver_ip"`
 	EmailStatus    IntBool  `json:"email_status"`
 	Tutorials      IntBool  `json:"tutorials"`
-	V              int64    `json:"v"`
+	V              int      `json:"v"`
 	ResolverStatus IntBool  `json:"resolver_status"`
 	RuleProfile    string   `json:"rule_profile"`
 	Date           Date     `json:"date"`
@@ -53,8 +52,7 @@ type ListUserResponse struct {
 }
 
 func (api *API) ListUser(ctx context.Context) (User, error) {
-	baseURL := fmt.Sprintf("/users")
-	uri := buildURI(baseURL, nil)
+	uri := buildURI("/users", nil)
 
 	res, err := api.makeRequestContext(ctx, http.MethodGet, uri, nil)
 	if err != nil {

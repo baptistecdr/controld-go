@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"net/http"
 	"testing"
 )
@@ -67,7 +68,7 @@ func TestListProfileDefaultRule(t *testing.T) {
 	_, err = client.ListProfileDefaultRule(context.Background(), ListProfileDefaultRuleParams{
 		ProfileID: "",
 	})
-	assert.Error(t, err, "Profile Default Rule should not have been listed")
+	require.Error(t, err, "Profile Default Rule should not have been listed")
 }
 
 func TestUpdateProfileDefaultRule(t *testing.T) {
@@ -110,5 +111,5 @@ func TestUpdateProfileDefaultRule(t *testing.T) {
 	_, err = client.UpdateProfileDefaultRule(context.Background(), UpdateProfileDefaultRuleParams{
 		ProfileID: "",
 	})
-	assert.Error(t, err, "Profile Default Rule should not have been updated")
+	require.Error(t, err, "Profile Default Rule should not have been updated")
 }

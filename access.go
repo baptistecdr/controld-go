@@ -14,7 +14,7 @@ type KnownIP struct {
 	Country string   `json:"country"`
 	City    string   `json:"city"`
 	ISP     string   `json:"isp"`
-	Asn     int64    `json:"asn"`
+	Asn     int      `json:"asn"`
 	AsName  string   `json:"as_name"`
 }
 
@@ -54,8 +54,7 @@ type DeleteLearnedIPsResponse struct {
 }
 
 func (api *API) ListKnownIPs(ctx context.Context, params ListKnownIPsParams) ([]KnownIP, error) {
-	baseURL := fmt.Sprintf("/access")
-	uri := buildURI(baseURL, nil)
+	uri := buildURI("/access", nil)
 
 	res, err := api.makeRequestContext(ctx, http.MethodGet, uri, params)
 	if err != nil {
@@ -69,8 +68,7 @@ func (api *API) ListKnownIPs(ctx context.Context, params ListKnownIPsParams) ([]
 }
 
 func (api *API) LearnNewIPs(ctx context.Context, params LearnNewIPsParams) ([]any, error) {
-	baseURL := fmt.Sprintf("/access")
-	uri := buildURI(baseURL, nil)
+	uri := buildURI("/access", nil)
 
 	res, err := api.makeRequestContext(ctx, http.MethodPost, uri, params)
 	if err != nil {
@@ -87,8 +85,7 @@ func (api *API) LearnNewIPs(ctx context.Context, params LearnNewIPsParams) ([]an
 }
 
 func (api *API) DeleteLearnedIPs(ctx context.Context, params DeleteLearnedIPsParams) ([]any, error) {
-	baseURL := fmt.Sprintf("/access")
-	uri := buildURI(baseURL, nil)
+	uri := buildURI("/access", nil)
 
 	res, err := api.makeRequestContext(ctx, http.MethodDelete, uri, params)
 	if err != nil {

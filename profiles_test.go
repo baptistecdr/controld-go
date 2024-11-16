@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"net/http"
 	"testing"
 	"time"
@@ -211,14 +212,14 @@ func TestUpdateProfile(t *testing.T) {
 	_, err = client.UpdateProfile(context.Background(), UpdateProfileParams{
 		ProfileID: "",
 	})
-	assert.Error(t, err, "Profile should not have been updated")
+	require.Error(t, err, "Profile should not have been updated")
 }
 
 func TestDeleteProfile(t *testing.T) {
 	setup()
 	defer teardown()
 	handler := func(w http.ResponseWriter, r *http.Request) {
-		assert.Equal(t, r.Method, "DELETE", "Expected method 'DELETE', got %s", r.Method)
+		assert.Equal(t, "DELETE", r.Method, "Expected method 'DELETE', got %s", r.Method)
 		w.Header().Set("Content-Type", "application/json")
 		fmt.Fprintf(w, `{
 		  "body": [],
@@ -229,10 +230,10 @@ func TestDeleteProfile(t *testing.T) {
 	profileID := "deviceID"
 	mux.HandleFunc(fmt.Sprintf("/profiles/%s", profileID), handler)
 	_, err := client.DeleteProfile(context.Background(), DeleteProfileParams{ProfileID: profileID})
-	assert.NoError(t, err, "Profile should have been deleted")
+	require.NoError(t, err, "Profile should have been deleted")
 
 	_, err = client.DeleteProfile(context.Background(), DeleteProfileParams{ProfileID: ""})
-	assert.Error(t, err, "Profile should not have been deleted")
+	require.Error(t, err, "Profile should not have been deleted")
 }
 
 func TestListProfilesOptions(t *testing.T) {
@@ -332,11 +333,11 @@ func TestUpdateProfilesOption(t *testing.T) {
 	_, err = client.UpdateProfilesOption(context.Background(), UpdateProfilesOption{
 		ProfileID: "",
 	})
-	assert.Error(t, err, "Profile Option should not have been updated")
+	require.Error(t, err, "Profile Option should not have been updated")
 
 	_, err = client.UpdateProfilesOption(context.Background(), UpdateProfilesOption{
 		ProfileID: "profileID",
 		Name:      "",
 	})
-	assert.Error(t, err, "Profile Option should not have been updated")
+	require.Error(t, err, "Profile Option should not have been updated")
 }

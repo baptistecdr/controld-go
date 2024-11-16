@@ -2,26 +2,37 @@ on:
   - push
   - pull_request
 
+permissions:
+  contents: read
+
+env:
+  GO_VERSION: 1.21
+
 name: Go
 jobs:
   test:
     name: Test
-    strategy:
-      matrix:
-        go-version: [ "1.21", "1.22", "1.23" ]
     runs-on: ubuntu-latest
     steps:
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
-          go-version: ${{ matrix.go-version }}
+          go-version: ${{ env.GO_VERSION }}
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Set up cache
         uses: actions/cache@v4
         with:
           path: ~/go/pkg/mod
-          key: "${{ runner.os }}-go${{ matrix.go-version }}-${{ hashFiles('**/go.mod') }}-${{ hashFiles('**/go.sum') }}"
+          key: "${{ runner.os }}-go${{ env.GO_VERSION }}-${{ hashFiles('**/go.mod') }}-${{ hashFiles('**/go.sum') }}"
+      - name: Lint
+        uses: golangci/golangci-lint-action@v6
+        with:
+          version: v1.60
+      - name: Lint tests
+        run: |
+          go install github.com/Antonboom/testifylint@latest
+          testifylint ./...
       - name: Vet
         run: go vet ./...
       - name: Test

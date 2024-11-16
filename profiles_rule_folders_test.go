@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"net/http"
 	"testing"
 )
@@ -59,7 +60,7 @@ func TestListProfileRuleFolders(t *testing.T) {
 	_, err = client.ListProfileRuleFolders(context.Background(), ListProfileRuleFoldersParams{
 		ProfileID: "",
 	})
-	assert.Error(t, err, "Profile Rule Folders should not have been listed")
+	require.Error(t, err, "Profile Rule Folders should not have been listed")
 }
 
 func TestCreateProfileRuleFolder(t *testing.T) {
@@ -114,7 +115,7 @@ func TestCreateProfileRuleFolder(t *testing.T) {
 	_, err = client.CreateProfileRuleFolder(context.Background(), CreateProfileRuleFolderParams{
 		ProfileID: "",
 	})
-	assert.Error(t, err, "Profile Rule FolderID should not have been created")
+	require.Error(t, err, "Profile Rule FolderID should not have been created")
 }
 
 func TestUpdateProfileRuleFolder(t *testing.T) {
@@ -169,7 +170,7 @@ func TestUpdateProfileRuleFolder(t *testing.T) {
 	_, err = client.UpdateProfileRuleFolder(context.Background(), UpdateProfileRuleFolderParams{
 		ProfileID: "",
 	})
-	assert.Error(t, err, "Profile Rule Folder should not have been updated")
+	require.Error(t, err, "Profile Rule Folder should not have been updated")
 }
 
 func TestDeleteProfileRuleFolder(t *testing.T) {
@@ -203,5 +204,5 @@ func TestDeleteProfileRuleFolder(t *testing.T) {
 	_, err = client.DeleteProfileRuleFolder(context.Background(), DeleteProfileRuleFolderParams{
 		ProfileID: "",
 	})
-	assert.Error(t, err, "Profile Rule Folder should not have been updated")
+	require.Error(t, err, "Profile Rule Folder should not have been updated")
 }

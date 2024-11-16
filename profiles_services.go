@@ -31,8 +31,8 @@ type Action struct {
 	Status IntBool `json:"status"`
 	Via    *string `json:"via,omitempty"`
 	ViaV6  *string `json:"via_v6,omitempty"`
-	Group  *int64  `json:"group,omitempty"`
-	Order  *int64  `json:"order,omitempty"`
+	Group  *int    `json:"group,omitempty"`
+	Order  *int    `json:"order,omitempty"`
 }
 
 type ListProfileServicesParams struct {

@@ -39,7 +39,7 @@ type CreateProfileResponse struct {
 type UpdateProfileParams struct {
 	ProfileID   string   `json:"profile_id"`
 	Name        *string  `json:"name"`
-	DisableTTL  *int64   `json:"disable_ttl"`
+	DisableTTL  *int     `json:"disable_ttl"`
 	LockStatus  *IntBool `json:"lock_status"`
 	LockMessage *string  `json:"lock_message"`
 	Password    *string  `json:"password"`
@@ -108,8 +108,7 @@ type UpdateProfilesOptionResponse struct {
 }
 
 func (api *API) ListProfiles(ctx context.Context) ([]Profile, error) {
-	baseURL := fmt.Sprintf("/profiles")
-	uri := buildURI(baseURL, nil)
+	uri := buildURI("/profiles", nil)
 
 	res, err := api.makeRequestContext(ctx, http.MethodGet, uri, nil)
 	if err != nil {
@@ -126,8 +125,7 @@ func (api *API) ListProfiles(ctx context.Context) ([]Profile, error) {
 }
 
 func (api *API) CreateProfile(ctx context.Context, params CreateProfileParams) ([]Profile, error) {
-	baseURL := fmt.Sprintf("/profiles")
-	uri := buildURI(baseURL, nil)
+	uri := buildURI("/profiles", nil)
 
 	res, err := api.makeRequestContext(ctx, http.MethodPost, uri, params)
 	if err != nil {
@@ -186,8 +184,7 @@ func (api *API) DeleteProfile(ctx context.Context, params DeleteProfileParams) (
 }
 
 func (api *API) ListProfilesOptions(ctx context.Context) ([]ProfilesOption, error) {
-	baseURL := fmt.Sprintf("/profiles/options")
-	uri := buildURI(baseURL, nil)
+	uri := buildURI("/profiles/options", nil)
 
 	res, err := api.makeRequestContext(ctx, http.MethodGet, uri, nil)
 	if err != nil {

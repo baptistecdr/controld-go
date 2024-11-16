@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"net/http"
 	"testing"
 )
@@ -62,12 +63,12 @@ func TestListProfileCustomRules(t *testing.T) {
 		ProfileID: "",
 		FolderID:  "folderID",
 	})
-	assert.Error(t, err, "Profile Rule Folders should not have been listed")
+	require.Error(t, err, "Profile Rule Folders should not have been listed")
 	_, err = client.ListProfileCustomRules(context.Background(), ListProfileCustomRulesParams{
 		ProfileID: "profileID",
 		FolderID:  "",
 	})
-	assert.Error(t, err, "Profile Rule Folders should not have been listed")
+	require.Error(t, err, "Profile Rule Folders should not have been listed")
 }
 
 func TestCreateProfileCustomRule(t *testing.T) {
@@ -103,7 +104,7 @@ func TestCreateProfileCustomRule(t *testing.T) {
 	mux.HandleFunc(fmt.Sprintf("/profiles/%s/rules", params.ProfileID), handler)
 	actual, err := client.CreateProfileCustomRule(context.Background(), params)
 
-	order := int64(1)
+	order := int(1)
 	want := []CustomRule{
 		{
 			Do:     Bypass,
@@ -118,7 +119,7 @@ func TestCreateProfileCustomRule(t *testing.T) {
 	_, err = client.CreateProfileRuleFolder(context.Background(), CreateProfileRuleFolderParams{
 		ProfileID: "",
 	})
-	assert.Error(t, err, "Profile Custom Rule should not have been created")
+	require.Error(t, err, "Profile Custom Rule should not have been created")
 }
 
 func TestUpdateProfileCustomRule(t *testing.T) {
@@ -155,8 +156,8 @@ func TestUpdateProfileCustomRule(t *testing.T) {
 	mux.HandleFunc(fmt.Sprintf("/profiles/%s/rules", params.ProfileID), handler)
 	actual, err := client.UpdateProfileCustomRule(context.Background(), params)
 
-	group := int64(0)
-	order := int64(1)
+	group := int(0)
+	order := int(1)
 	want := []CustomRule{
 		{
 			Do:     Block,
@@ -172,7 +173,7 @@ func TestUpdateProfileCustomRule(t *testing.T) {
 	_, err = client.UpdateProfileCustomRule(context.Background(), UpdateProfileCustomRuleParams{
 		ProfileID: "",
 	})
-	assert.Error(t, err, "Profile Custom Rule should not have been updated")
+	require.Error(t, err, "Profile Custom Rule should not have been updated")
 }
 
 func TestDeleteProfileCustomRule(t *testing.T) {
@@ -208,11 +209,11 @@ func TestDeleteProfileCustomRule(t *testing.T) {
 		ProfileID: "",
 		Hostname:  "hostname",
 	})
-	assert.Error(t, err, "Profile Folder Custom Rule should not have been updated")
+	require.Error(t, err, "Profile Folder Custom Rule should not have been updated")
 
 	_, err = client.DeleteProfileCustomRule(context.Background(), DeleteProfileCustomRuleParams{
 		ProfileID: "profileID",
 		Hostname:  "",
 	})
-	assert.Error(t, err, "Profile Custom Rule should not have been updated")
+	require.Error(t, err, "Profile Custom Rule should not have been updated")
 }

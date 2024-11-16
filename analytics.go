@@ -37,8 +37,7 @@ type ListStorageRegionsResponse struct {
 }
 
 func (api *API) ListLogLevels(ctx context.Context) ([]LogLevel, error) {
-	baseURL := fmt.Sprintf("/analytics/levels")
-	uri := buildURI(baseURL, nil)
+	uri := buildURI("/analytics/levels", nil)
 
 	res, err := api.makeRequestContext(ctx, http.MethodGet, uri, nil)
 	if err != nil {
@@ -55,8 +54,7 @@ func (api *API) ListLogLevels(ctx context.Context) ([]LogLevel, error) {
 }
 
 func (api *API) ListStorageRegions(ctx context.Context) ([]Endpoint, error) {
-	baseURL := fmt.Sprintf("/analytics/endpoints")
-	uri := buildURI(baseURL, nil)
+	uri := buildURI("/analytics/endpoints", nil)
 
 	res, err := api.makeRequestContext(ctx, http.MethodGet, uri, nil)
 	if err != nil {
