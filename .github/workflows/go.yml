@@ -27,7 +27,7 @@ jobs:
           path: ~/go/pkg/mod
           key: "${{ runner.os }}-go${{ env.GO_VERSION }}-${{ hashFiles('**/go.mod') }}-${{ hashFiles('**/go.sum') }}"
       - name: Lint
-        uses: golangci/golangci-lint-action@v7
+        uses: golangci/golangci-lint-action@v8
         with:
           version: latest
   test:
