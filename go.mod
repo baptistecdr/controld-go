@@ -2,7 +2,7 @@ module github.com/baptistecdr/controld-go
 
 go 1.24.0
 
-toolchain go1.25.4
+toolchain go1.25.5
 
 require (
 	github.com/goccy/go-json v0.10.5
