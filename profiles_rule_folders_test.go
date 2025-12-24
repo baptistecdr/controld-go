@@ -48,7 +48,7 @@ func TestListProfileRuleFolders(t *testing.T) {
 			Group: "Group Name",
 			Action: GroupAction{
 				Do:     nil,
-				Status: IntBool{true},
+				Status: IntBool(true),
 			},
 			Count: 0,
 		},
@@ -103,7 +103,7 @@ func TestCreateProfileRuleFolder(t *testing.T) {
 			Group: "New Group",
 			Action: GroupAction{
 				Do:     nil,
-				Status: IntBool{true},
+				Status: IntBool(true),
 			},
 			Count: 0,
 		},
@@ -158,7 +158,7 @@ func TestUpdateProfileRuleFolder(t *testing.T) {
 			Group: "NewGroupName",
 			Action: GroupAction{
 				Do:     nil,
-				Status: IntBool{true},
+				Status: IntBool(true),
 			},
 			Count: 0,
 		},

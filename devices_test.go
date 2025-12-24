@@ -64,7 +64,7 @@ func TestListDevices(t *testing.T) {
 			Stats:    &stats,
 			DeviceID: "deviceID",
 			Status:   Active,
-			LearnIP:  IntBool{false},
+			LearnIP:  IntBool(false),
 			Resolvers: Resolvers{
 				Uid: "resolverUID",
 				DoH: "https://dns.controld.com/deviceID",
@@ -138,7 +138,7 @@ func TestCreateDevice(t *testing.T) {
 		User:     "user",
 		DeviceID: "deviceID",
 		Status:   Pending,
-		LearnIP:  IntBool{false},
+		LearnIP:  IntBool(false),
 		Resolvers: Resolvers{
 			Uid: "resolverUID",
 			DoH: "https://dns.controld.com/deviceID",
@@ -227,7 +227,7 @@ func TestUpdateDevice(t *testing.T) {
 		User:     "user",
 		DeviceID: "deviceID",
 		Status:   Pending,
-		LearnIP:  IntBool{false},
+		LearnIP:  IntBool(false),
 		Resolvers: Resolvers{
 			Uid: "resolverUID",
 			DoH: "https://dns.controld.com/deviceID",

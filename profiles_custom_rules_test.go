@@ -51,7 +51,7 @@ func TestListProfileCustomRules(t *testing.T) {
 			Group: 0,
 			Action: Action{
 				Do:     0,
-				Status: IntBool{true},
+				Status: IntBool(true),
 			},
 		},
 	}
@@ -97,7 +97,7 @@ func TestCreateProfileCustomRule(t *testing.T) {
 	params := CreateProfileCustomRuleParams{
 		ProfileID: "profileID",
 		Do:        Bypass,
-		Status:    IntBool{true},
+		Status:    IntBool(true),
 		Hostnames: []string{"hostname1"},
 	}
 
@@ -108,7 +108,7 @@ func TestCreateProfileCustomRule(t *testing.T) {
 	want := []CustomRule{
 		{
 			Do:     Bypass,
-			Status: IntBool{true},
+			Status: IntBool(true),
 			Order:  &order,
 		},
 	}
@@ -149,7 +149,7 @@ func TestUpdateProfileCustomRule(t *testing.T) {
 	params := UpdateProfileCustomRuleParams{
 		ProfileID: "profileID",
 		Do:        Block,
-		Status:    IntBool{true},
+		Status:    IntBool(true),
 		Hostnames: []string{"hostname.com"},
 	}
 
@@ -161,7 +161,7 @@ func TestUpdateProfileCustomRule(t *testing.T) {
 	want := []CustomRule{
 		{
 			Do:     Block,
-			Status: IntBool{true},
+			Status: IntBool(true),
 			Group:  &group,
 			Order:  &order,
 		},

@@ -64,11 +64,11 @@ func TestListProfilesNativeFilters(t *testing.T) {
 					Title:  "Relaxed",
 					Type:   "filter",
 					Name:   "ads_small",
-					Status: IntBool{false},
+					Status: IntBool(false),
 					Opt:    nil,
 				},
 			},
-			Status:    IntBool{false},
+			Status:    IntBool(false),
 			Resolvers: nil,
 		},
 	}
@@ -132,7 +132,7 @@ func TestListProfilesExternalFilters(t *testing.T) {
 			Additional:  &additional,
 			Sources:     []string{"https://github.com/badmojr/1Hosts"},
 			Levels:      nil,
-			Status:      IntBool{false},
+			Status:      IntBool(false),
 			Resolvers:   &resolvers,
 		},
 	}
@@ -171,7 +171,7 @@ func TestUpdateProfileFilter(t *testing.T) {
 	params := UpdateProfileFilterParams{
 		ProfileID: "profileID",
 		Filter:    "x-1hosts-lite",
-		Status:    IntBool{true},
+		Status:    IntBool(true),
 	}
 
 	mux.HandleFunc(fmt.Sprintf("/profiles/%s/filters/filter/%s", params.ProfileID, params.Filter), handler)
