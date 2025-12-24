@@ -35,7 +35,7 @@ func TestListProfileDefaultRule(t *testing.T) {
 
 	want := DefaultRule{
 		Do:     Bypass,
-		Status: IntBool{true},
+		Status: IntBool(true),
 	}
 	if assert.NoError(t, err) {
 		assert.Equal(t, want, actual)
@@ -94,7 +94,7 @@ func TestUpdateProfileDefaultRule(t *testing.T) {
 	params := UpdateProfileDefaultRuleParams{
 		ProfileID: "profileID",
 		Do:        Block,
-		Status:    IntBool{true},
+		Status:    IntBool(true),
 	}
 
 	mux.HandleFunc(fmt.Sprintf("/profiles/%s/default", params.ProfileID), handler)
@@ -102,7 +102,7 @@ func TestUpdateProfileDefaultRule(t *testing.T) {
 
 	want := DefaultRule{
 		Do:     Block,
-		Status: IntBool{true},
+		Status: IntBool(true),
 	}
 	if assert.NoError(t, err) {
 		assert.Equal(t, want, actual)

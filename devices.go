@@ -28,12 +28,10 @@ func (s *UnixTime) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-type IntBool struct {
-	bool
-}
+type IntBool bool
 
 func (s IntBool) MarshalJSON() ([]byte, error) {
-	if s.bool {
+	if s {
 		return json.Marshal(1)
 	} else {
 		return json.Marshal(0)
@@ -45,7 +43,7 @@ func (s *IntBool) UnmarshalJSON(data []byte) error {
 	if err != nil {
 		return err
 	}
-	s.bool = value == 1
+	*s = IntBool(value == 1)
 	return nil
 }
 

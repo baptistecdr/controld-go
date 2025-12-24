@@ -55,7 +55,7 @@ func TestListProfileServices(t *testing.T) {
 			Locations:      nil,
 			Action: Action{
 				Do:     Block,
-				Status: IntBool{true},
+				Status: IntBool(true),
 				Via:    nil,
 				ViaV6:  nil,
 			},
@@ -101,7 +101,7 @@ func TestUpdateProfileService(t *testing.T) {
 		ProfileID: "profileID",
 		Service:   "4chan",
 		Do:        Spoof,
-		Status:    IntBool{true},
+		Status:    IntBool(true),
 		Via:       &via,
 		ViaV6:     &via,
 	}
@@ -112,7 +112,7 @@ func TestUpdateProfileService(t *testing.T) {
 	want := []Action{
 		{
 			Do:     Spoof,
-			Status: IntBool{true},
+			Status: IntBool(true),
 			Via:    &via,
 			ViaV6:  &via,
 		},

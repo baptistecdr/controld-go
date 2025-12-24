@@ -74,7 +74,7 @@ func (api *API) ListProfileDefaultRule(ctx context.Context, params ListProfileDe
 	case []any:
 		return DefaultRule{
 			Do:     Bypass,
-			Status: IntBool{true},
+			Status: IntBool(true),
 		}, nil
 	default:
 		return DefaultRule{}, fmt.Errorf("%s: %w", errTypeError, errors.New("type: unknown field type"))

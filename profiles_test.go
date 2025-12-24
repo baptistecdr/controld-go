@@ -312,7 +312,7 @@ func TestUpdateProfilesOption(t *testing.T) {
 	params := UpdateProfilesOption{
 		ProfileID: "PK",
 		Name:      "ai_malware",
-		Status:    IntBool{true},
+		Status:    IntBool(true),
 		Value:     &value,
 	}
 
