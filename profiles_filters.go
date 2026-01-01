@@ -114,7 +114,7 @@ func (api *API) UpdateProfileFilter(ctx context.Context, params UpdateProfileFil
 	baseURL := fmt.Sprintf("/profiles/%s/filters/filter/%s", params.ProfileID, params.Filter)
 	uri := buildURI(baseURL, nil)
 
-	res, err := api.makeRequestContext(ctx, http.MethodPut, uri, nil)
+	res, err := api.makeRequestContext(ctx, http.MethodPut, uri, params)
 	if err != nil {
 		return nil, fmt.Errorf("%s: %w", errMakeRequestError, err)
 	}
