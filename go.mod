@@ -5,7 +5,7 @@ go 1.25.0
 toolchain go1.26.1
 
 require (
-	github.com/goccy/go-json v0.10.5
+	github.com/goccy/go-json v0.10.6
 	github.com/google/go-querystring v1.2.0
 	github.com/stretchr/testify v1.11.1
 	golang.org/x/time v0.15.0
