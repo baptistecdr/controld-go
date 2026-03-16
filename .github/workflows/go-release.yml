@@ -1,10 +1,19 @@
-name: Release Patch
+name: Release
 
-on: workflow_dispatch
-
+on:
+  workflow_dispatch:
+    inputs:
+      version-type:
+        description: Version type to release
+        required: true
+        type: choice
+        options:
+          - major
+          - minor
+          - patch
 jobs:
-  release-patch:
-    name: Release Patch
+  release:
+    name: Release
     runs-on: ubuntu-latest
     steps:
       - name: Clone repository
@@ -16,7 +25,7 @@ jobs:
         id: version
         with:
           scheme: semver
-          increment: patch
+          increment: ${{ github.event.inputs.version-type }}
       - name: Create release
         env:
           GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
