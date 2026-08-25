@@ -24,7 +24,7 @@ type ListProfilesResponse struct {
 
 type CreateProfileParams struct {
 	Name           string  `json:"name"`
-	CloneProfileID *string `json:"clone_profile_id"`
+	CloneProfileID *string `json:"clone_profile_id,omitempty"`
 }
 
 type CreateProfileBody struct {
@@ -38,11 +38,11 @@ type CreateProfileResponse struct {
 
 type UpdateProfileParams struct {
 	ProfileID   string   `json:"profile_id"`
-	Name        *string  `json:"name"`
-	DisableTTL  *int     `json:"disable_ttl"`
-	LockStatus  *IntBool `json:"lock_status"`
-	LockMessage *string  `json:"lock_message"`
-	Password    *string  `json:"password"`
+	Name        *string  `json:"name,omitempty"`
+	DisableTTL  *int     `json:"disable_ttl,omitempty"`
+	LockStatus  *IntBool `json:"lock_status,omitempty"`
+	LockMessage *string  `json:"lock_message,omitempty"`
+	Password    *string  `json:"password,omitempty"`
 }
 
 type UpdateProfileBody struct {
@@ -94,7 +94,7 @@ type UpdateProfilesOption struct {
 	ProfileID string  `json:"profile_id"`
 	Name      string  `json:"name"`
 	Status    IntBool `json:"status"`
-	Value     *string `json:"value"`
+	Value     *string `json:"value,omitempty"`
 }
 
 type UpdateProfilesOptionBody struct {

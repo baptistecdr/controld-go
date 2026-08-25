@@ -188,6 +188,9 @@ func (api *API) makeRequestWithAuthTypeAndHeadersComplete(ctx context.Context, m
 			if respErr == nil {
 				respErr = fmt.Errorf("received %s response (HTTP %d), please try again later", strings.ToLower(http.StatusText(resp.StatusCode)), resp.StatusCode)
 			}
+			if resp != nil {
+				resp.Body.Close()
+			}
 			continue
 		} else {
 			respBody, err = io.ReadAll(resp.Body)
@@ -315,7 +318,7 @@ type DateTime struct {
 }
 
 func (dt DateTime) MarshalJSON() ([]byte, error) {
-	return []byte(dt.Format(time.RFC3339)), nil
+	return []byte(`"` + dt.Format(time.RFC1123Z) + `"`), nil
 }
 func (dt *DateTime) UnmarshalJSON(data []byte) error {
 	var dateTimeStr = string(data[1 : len(data)-1])

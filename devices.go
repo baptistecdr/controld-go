@@ -161,8 +161,8 @@ type CreateDeviceParams struct {
 	Desc             *string         `json:"desc,omitempty"`
 	DDNSStatus       *IntBool        `json:"ddns_status,omitempty"`
 	DDNSSubdomain    *string         `json:"ddns_subdomain,omitempty"`
-	DDNSExtStatus    *IntBool        `json:"ddns_ext_host,omitempty"`
-	DDNSExtHost      *string         `json:"ddns_ext_status,omitempty"`
+	DDNSExtStatus    *IntBool        `json:"ddns_ext_status,omitempty"`
+	DDNSExtHost      *string         `json:"ddns_ext_host,omitempty"`
 	RemapDeviceID    *string         `json:"remap_device_id,omitempty"`
 	RemapClientID    *string         `json:"remap_client_id,omitempty"`
 }
