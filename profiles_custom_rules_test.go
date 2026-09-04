@@ -64,11 +64,59 @@ func TestListProfileCustomRules(t *testing.T) {
 		FolderID:  "folderID",
 	})
 	require.Error(t, err, "Profile Rule Folders should not have been listed")
-	_, err = client.ListProfileCustomRules(context.Background(), ListProfileCustomRulesParams{
+}
+
+func TestListProfileCustomRulesRootFolder(t *testing.T) {
+	setup()
+	defer teardown()
+
+	handler := func(w http.ResponseWriter, r *http.Request) {
+		assert.Equal(t, http.MethodGet, r.Method, "Expected method 'GET', got %s", r.Method)
+		w.Header().Set("Content-Type", "application/json")
+		fmt.Fprint(w, `
+			{
+			  "body": {
+				"rules": [
+				  {
+					"PK": "hostname.com",
+					"order": 1,
+					"group": 0,
+					"action": {
+					  "do": 0,
+					  "status": 1
+					},
+					"comment": "my comment"
+				  }
+				]
+			  },
+			  "success": true
+			}
+		`)
+	}
+
+	params := ListProfileCustomRulesParams{
 		ProfileID: "profileID",
-		FolderID:  "",
-	})
-	require.Error(t, err, "Profile Rule Folders should not have been listed")
+	}
+
+	mux.HandleFunc(fmt.Sprintf("/profiles/%s/rules", params.ProfileID), handler)
+	actual, err := client.ListProfileCustomRules(context.Background(), params)
+
+	comment := "my comment"
+	want := []Rule{
+		{
+			PK:    "hostname.com",
+			Order: 1,
+			Group: 0,
+			Action: Action{
+				Do:     Block,
+				Status: IntBool(true),
+			},
+			Comment: &comment,
+		},
+	}
+	if assert.NoError(t, err) {
+		assert.Equal(t, want, actual)
+	}
 }
 
 func TestCreateProfileCustomRule(t *testing.T) {
@@ -174,6 +222,59 @@ func TestUpdateProfileCustomRule(t *testing.T) {
 		ProfileID: "",
 	})
 	require.Error(t, err, "Profile Custom Rule should not have been updated")
+}
+
+func TestCreateProfileCustomRuleWithComment(t *testing.T) {
+	setup()
+	defer teardown()
+
+	handler := func(w http.ResponseWriter, r *http.Request) {
+		assert.Equal(t, http.MethodPost, r.Method, "Expected method 'POST', got %s", r.Method)
+		w.Header().Set("Content-Type", "application/json")
+		fmt.Fprint(w, `
+			{
+			  "body": {
+				"rules": [
+				  {
+					"do": 0,
+					"status": 1,
+					"comment": "my comment",
+					"order": 1,
+					"group": 0
+				  }
+				]
+			  },
+			  "success": true
+			}
+		`)
+	}
+
+	comment := "my comment"
+	params := CreateProfileCustomRuleParams{
+		ProfileID: "profileID",
+		Do:        Block,
+		Status:    IntBool(true),
+		Comment:   &comment,
+		Hostnames: []string{"hostname1"},
+	}
+
+	mux.HandleFunc(fmt.Sprintf("/profiles/%s/rules", params.ProfileID), handler)
+	actual, err := client.CreateProfileCustomRule(context.Background(), params)
+
+	group := int(0)
+	order := int(1)
+	want := []CustomRule{
+		{
+			Do:      Block,
+			Status:  IntBool(true),
+			Comment: &comment,
+			Group:   &group,
+			Order:   &order,
+		},
+	}
+	if assert.NoError(t, err) {
+		assert.Equal(t, want, actual)
+	}
 }
 
 func TestDeleteProfileCustomRule(t *testing.T) {

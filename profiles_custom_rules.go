@@ -10,15 +10,17 @@ import (
 type CustomRule Action
 
 type Rule struct {
-	PK     string `json:"PK"`
-	Order  int    `json:"order"`
-	Group  int    `json:"group"`
-	Action Action `json:"action"`
+	PK      string  `json:"PK"`
+	Order   int     `json:"order"`
+	Group   int     `json:"group"`
+	Action  Action  `json:"action"`
+	Comment *string `json:"comment,omitempty"`
 }
 
 type ListProfileCustomRulesParams struct {
 	ProfileID string `json:"profile_id"`
-	FolderID  string `json:"folder_id"`
+	// FolderID is optional; leave empty to list rules in the root folder.
+	FolderID string `json:"folder_id"`
 }
 
 type ListProfileCustomRulesBody struct {
@@ -37,6 +39,7 @@ type CreateProfileCustomRuleParams struct {
 	Via       *string  `json:"via,omitempty"`
 	ViaV6     *string  `json:"via_v6,omitempty"`
 	Group     *int     `json:"group,omitempty"`
+	Comment   *string  `json:"comment,omitempty"`
 	Hostnames []string `json:"hostnames"`
 }
 
@@ -56,6 +59,7 @@ type UpdateProfileCustomRuleParams struct {
 	Via       *string  `json:"via,omitempty"`
 	ViaV6     *string  `json:"via_v6,omitempty"`
 	Group     *int     `json:"group,omitempty"`
+	Comment   *string  `json:"comment,omitempty"`
 	Hostnames []string `json:"hostnames"`
 }
 
@@ -82,10 +86,10 @@ func (api *API) ListProfileCustomRules(ctx context.Context, params ListProfileCu
 	if params.ProfileID == "" {
 		return []Rule{}, fmt.Errorf("list: no profile ID provided")
 	}
-	if params.FolderID == "" {
-		return []Rule{}, fmt.Errorf("list: no folder ID provided")
+	baseURL := fmt.Sprintf("/profiles/%s/rules", params.ProfileID)
+	if params.FolderID != "" {
+		baseURL = fmt.Sprintf("%s/%s", baseURL, params.FolderID)
 	}
-	baseURL := fmt.Sprintf("/profiles/%s/rules/%s", params.ProfileID, params.FolderID)
 	uri := buildURI(baseURL, nil)
 
 	res, err := api.makeRequestContext(ctx, http.MethodGet, uri, nil)

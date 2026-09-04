@@ -27,12 +27,13 @@ type ProfileService struct {
 }
 
 type Action struct {
-	Do     DoType  `json:"do"`
-	Status IntBool `json:"status"`
-	Via    *string `json:"via,omitempty"`
-	ViaV6  *string `json:"via_v6,omitempty"`
-	Group  *int    `json:"group,omitempty"`
-	Order  *int    `json:"order,omitempty"`
+	Do      DoType  `json:"do"`
+	Status  IntBool `json:"status"`
+	Via     *string `json:"via,omitempty"`
+	ViaV6   *string `json:"via_v6,omitempty"`
+	Group   *int    `json:"group,omitempty"`
+	Order   *int    `json:"order,omitempty"`
+	Comment *string `json:"comment,omitempty"`
 }
 
 type ListProfileServicesParams struct {

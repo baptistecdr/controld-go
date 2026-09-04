@@ -198,3 +198,86 @@ func TestUpdateProfileFilter(t *testing.T) {
 	})
 	require.Error(t, err, "Profile Filter should not have been updated")
 }
+
+func TestUpdateProfileFilters(t *testing.T) {
+	setup()
+	defer teardown()
+
+	handler := func(w http.ResponseWriter, r *http.Request) {
+		assert.Equal(t, http.MethodPut, r.Method, "Expected method 'PUT', got %s", r.Method)
+		w.Header().Set("Content-Type", "application/json")
+		fmt.Fprint(w, `
+			{
+			  "body": {
+				"filters": {
+				  "ads": {
+					"do": 0,
+					"status": 1
+				  },
+				  "malware": {
+					"do": 0,
+					"status": 1
+				  }
+				}
+			  },
+			  "success": true
+			}
+		`)
+	}
+
+	params := UpdateProfileFiltersParams{
+		ProfileID: "profileID",
+		Filters: []UpdateProfileFilterEntry{
+			{Filter: "ads", Status: IntBool(true)},
+			{Filter: "malware", Status: IntBool(true)},
+		},
+	}
+
+	mux.HandleFunc(fmt.Sprintf("/profiles/%s/filters", params.ProfileID), handler)
+	actual, err := client.UpdateProfileFilters(context.Background(), params)
+
+	want := map[string]FilterState{
+		"ads":     {Do: Block, Status: IntBool(true)},
+		"malware": {Do: Block, Status: IntBool(true)},
+	}
+	if assert.NoError(t, err) {
+		assert.Equal(t, want, actual)
+	}
+
+	_, err = client.UpdateProfileFilters(context.Background(), UpdateProfileFiltersParams{
+		ProfileID: "",
+	})
+	require.Error(t, err, "Profile Filters should not have been updated")
+}
+
+func TestUpdateProfileFiltersEmptyResponse(t *testing.T) {
+	setup()
+	defer teardown()
+
+	handler := func(w http.ResponseWriter, r *http.Request) {
+		assert.Equal(t, http.MethodPut, r.Method, "Expected method 'PUT', got %s", r.Method)
+		w.Header().Set("Content-Type", "application/json")
+		fmt.Fprint(w, `
+			{
+			  "body": {
+				"filters": []
+			  },
+			  "success": true
+			}
+		`)
+	}
+
+	params := UpdateProfileFiltersParams{
+		ProfileID: "profileID",
+		Filters: []UpdateProfileFilterEntry{
+			{Filter: "ads", Status: IntBool(false)},
+		},
+	}
+
+	mux.HandleFunc(fmt.Sprintf("/profiles/%s/filters", params.ProfileID), handler)
+	actual, err := client.UpdateProfileFilters(context.Background(), params)
+
+	if assert.NoError(t, err) {
+		assert.Equal(t, map[string]FilterState{}, actual)
+	}
+}
