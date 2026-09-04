@@ -269,3 +269,32 @@ func TestDeleteDevice(t *testing.T) {
 	_, err = client.DeleteDevice(context.Background(), DeleteDeviceParams{DeviceID: ""})
 	require.Error(t, err, "Device should not have been deleted")
 }
+
+func TestGetDeviceMobileConfig(t *testing.T) {
+	setup()
+	defer teardown()
+
+	content := []byte("signed .mobileconfig content")
+	handler := func(w http.ResponseWriter, r *http.Request) {
+		assert.Equal(t, http.MethodGet, r.Method, "Expected method 'GET', got %s", r.Method)
+		w.Header().Set("Content-Type", "application/xml; charset=utf-8")
+		w.Header().Set("Content-Disposition", `Attachment; filename="Control-D-deviceID-my-device.mobileconfig"`)
+		w.WriteHeader(http.StatusOK)
+		_, _ = w.Write(content)
+	}
+	deviceID := "deviceID"
+	mux.HandleFunc(fmt.Sprintf("/mobileconfig/%s", deviceID), handler)
+
+	actual, err := client.GetDeviceMobileConfig(context.Background(), deviceID)
+
+	want := DeviceMobileConfig{
+		Filename: "Control-D-deviceID-my-device.mobileconfig",
+		Content:  content,
+	}
+	if assert.NoError(t, err) {
+		assert.Equal(t, want, actual)
+	}
+
+	_, err = client.GetDeviceMobileConfig(context.Background(), "")
+	require.Error(t, err, "mobileconfig should not have been fetched")
+}

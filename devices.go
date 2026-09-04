@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"mime"
 	"net"
 	"net/http"
 	"strconv"
@@ -365,4 +366,35 @@ func (api *API) DeleteDevice(ctx context.Context, params DeleteDeviceParams) ([]
 		return []any{}, fmt.Errorf("%s: %w", errUnmarshalError, err)
 	}
 	return r.Body, nil
+}
+
+// DeviceMobileConfig is a signed Apple Configuration Profile (.mobileconfig)
+// for a device, ready to write to disk and install on iOS/macOS to enforce
+// Control D as the device's DNS resolver. This endpoint is undocumented; its
+// path and response shape were determined by observing the live API.
+type DeviceMobileConfig struct {
+	// Filename is the suggested file name, taken from the response's
+	// Content-Disposition header (e.g. "Control-D-<device_id>-<name>.mobileconfig").
+	Filename string
+	// Content is the raw, signed .mobileconfig file bytes.
+	Content []byte
+}
+
+// GetDeviceMobileConfig fetches the signed .mobileconfig profile for a device.
+func (api *API) GetDeviceMobileConfig(ctx context.Context, deviceID string) (DeviceMobileConfig, error) {
+	if deviceID == "" {
+		return DeviceMobileConfig{}, fmt.Errorf("mobileconfig: no device ID provided")
+	}
+	uri := buildURI(fmt.Sprintf("/mobileconfig/%s", deviceID), nil)
+
+	resp, err := api.makeRequestContextWithHeadersComplete(ctx, http.MethodGet, uri, nil, nil)
+	if err != nil {
+		return DeviceMobileConfig{}, fmt.Errorf("%s: %w", errMakeRequestError, err)
+	}
+
+	filename := ""
+	if _, params, err := mime.ParseMediaType(resp.Headers.Get("Content-Disposition")); err == nil {
+		filename = params["filename"]
+	}
+	return DeviceMobileConfig{Filename: filename, Content: resp.Body}, nil
 }

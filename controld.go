@@ -118,8 +118,6 @@ func (api *API) makeRequestWithAuthTypeAndHeaders(ctx context.Context, method, u
 }
 
 // Use this method if an API response can have different Content-Type headers and different body formats.
-//
-//nolint:unused
 func (api *API) makeRequestContextWithHeadersComplete(ctx context.Context, method, uri string, params interface{}, headers http.Header) (*APIResponse, error) {
 	return api.makeRequestWithAuthTypeAndHeadersComplete(ctx, method, uri, params, headers)
 }
