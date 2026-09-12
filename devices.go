@@ -87,6 +87,7 @@ const (
 	RouterWindows     IconName = "router-windows"
 	RouterLinux       IconName = "router-linux"
 	RouterOther       IconName = "router"
+	RouterTailscale   IconName = "router-tailscale"
 )
 
 type DDNS struct {
