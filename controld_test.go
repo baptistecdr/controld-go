@@ -1,8 +1,12 @@
 package controld
 
 import (
+	"context"
 	"net/http"
 	"net/http/httptest"
+	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 var (
@@ -31,4 +35,41 @@ func setup(opts ...Option) {
 
 func teardown() {
 	server.Close()
+}
+
+func TestRateLimitRetriesExhaustedKeepsTypedError(t *testing.T) {
+	setup()
+	defer teardown()
+
+	mux.HandleFunc("/devices", func(w http.ResponseWriter, _ *http.Request) {
+		w.WriteHeader(http.StatusTooManyRequests)
+	})
+
+	_, err := client.makeRequestContext(context.Background(), http.MethodGet, "/devices", nil)
+
+	var rateLimitErr *RatelimitError
+	if assert.Error(t, err) {
+		assert.ErrorAs(t, err, &rateLimitErr, "errors.As must reach the typed error once retries are exhausted")
+		assert.Equal(t, ErrorTypeRateLimit, rateLimitErr.Type())
+		assert.Equal(t, "exceeded available rate limit retries", err.Error(),
+			"the message must stay byte-identical for callers matching on text")
+	}
+}
+
+func TestServerErrorRetriesExhaustedKeepsTypedError(t *testing.T) {
+	setup()
+	defer teardown()
+
+	mux.HandleFunc("/devices", func(w http.ResponseWriter, _ *http.Request) {
+		w.WriteHeader(http.StatusServiceUnavailable)
+	})
+
+	_, err := client.makeRequestContext(context.Background(), http.MethodGet, "/devices", nil)
+
+	var serviceErr *ServiceError
+	if assert.Error(t, err) {
+		assert.ErrorAs(t, err, &serviceErr, "errors.As must reach the typed error once retries are exhausted")
+		assert.Equal(t, "received service unavailable response (HTTP 503), please try again later", err.Error(),
+			"the message must stay byte-identical for callers matching on text")
+	}
 }
